@@ -1,0 +1,26 @@
+name: Xcode Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest # Or a specific macOS version like macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies (e.g., CocoaPods)
+      run: |
+        gem install cocoapods
+        pod install
+
+    - name: Build Xcode project
+      run: |
+        xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme -configuration Release build
